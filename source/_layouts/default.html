@@ -1,0 +1,23 @@
+{% capture root_url %}{{ site.root | strip_slash }}{% endcapture %}
+{% include head.html %}
+<body {% if page.body_id %} id="{{ page.body_id }}" {% endif %}>
+  <div id="main">
+    <aside class="sidebar">
+      {% include sidebar.html %}
+    </aside>
+    <div class="clearer"></div>
+    <header role="banner">{% include header.html %}</header>
+    <div id="container">
+      <div id="content" class="with-sidebar">
+        {{ content | expand_urls: root_url }}
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <footer role="contentinfo">{% include footer.html %}</footer>
+  {% include after_footer.html %}
+</body>
+<script type="text/javascript"> 
+    moveScroller();
+</script> 
+</html>

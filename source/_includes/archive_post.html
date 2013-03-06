@@ -1,0 +1,14 @@
+{% capture category %}{{ post.categories | size }}{% endcapture %}
+<h2 class="entry-title"><a href="{{ root_url }}{{ post.url }}">{{post.title}}</a></h2>
+<p class="meta"><time datetime="{{ post.date | datetime | date_to_xmlschema }}" pubdate>{{ post.date | date: "<span class='month'>%b</span> <span class='day'>%d</span> <span class='year'>%Y</span>"}}</time></p>
+{% if category != '0' %}
+<p class="tags">{{ post.categories | category_links }}</p>
+{% endif %}
+
+<div class="entry-content">
+  {{ post.content | excerpt }}
+  {% capture excerpted %}{{ post.content | has_excerpt }}{% endcapture %}
+  {% if excerpted == 'true' %}
+  <a rel="full-article" href="{{ root_url }}{{ post.url }}">{{ site.excerpt_link }}</a>
+  {% endif %}
+</div>

@@ -1,0 +1,28 @@
+<div id="scroller-anchor"></div>
+<div id="scroller">
+  <div id="profile-image"></div>
+  <div id="profile-info">
+    <h3>Ben Mills</h3>
+    <p>iOS / Ruby / Rails / Java Developer<br>
+    System Administrator
+    </p>
+  </div>
+  <div class="social">
+    <a href="https://twitter.com/remear" class="twitter">Twitter</a>
+    <a href="https://coderwall.com/remear" class="coderwall">Coderwall</a>
+    <a href="https://github.com/remear" class="github">Github</a>
+    <a href="https://plus.google.com/115007760151099331775" class="google-plus">Google +</a>
+  </div>
+  <div class="clearer"></div>
+  <div id="navigation-sections">
+    <ul>
+      <li><a class="nav-archives" href="{{ root_url }}/blog/archives">Archives</a></li>
+      <li><a class="nav-rss" href="{{ root_url }}/atom.xml">RSS</a></li>
+    </ul>
+  </div>
+  {% if site.blog_index_asides.size %}
+    {% include_array blog_index_asides %}
+  {% else %}
+    {% include_array default_asides %}
+  {% endif %}
+</div>
