@@ -6,6 +6,6 @@ comments: false
 categories: [thoughts]
 ---
 
-One of the top requests I get from people is to bring my blog back and give insight into my many projects and interest.
+One of the top requests I get from people is to bring my blog back and give insight into my many projects and interests.
 
-This is where you will find them. More to come.
+This is where you will find such information. More to come.
