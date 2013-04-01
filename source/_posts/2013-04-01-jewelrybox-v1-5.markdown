@@ -7,7 +7,7 @@ categories: jewelrybox osx
 ---
 
 
-No, this is not an April Fools' joke. I'm pleased to announce the immediate availability of JewelryBox v1.5. This brings improved compatability with RVM 1.19.x, which contains many major and important changes.
+No, this is not an April Fools' joke. I'm pleased to announce the immediate availability of JewelryBox v1.5. This brings improved compatability with RVM 1.19.x, which contains many major and important changes. Use the in-app updater, or grab it from [http://jewelrybox.unfiniti.com](http://jewelrybox.unfiniti.com)
 
 Change log:
 
