@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "balanced-ios Architecture"
+title: "balanced-ios Project Architecture"
 date: 2013-08-09 13:26
 comments: true
 categories: ios balanced
@@ -9,17 +9,15 @@ draft: true
 
 A few months ago I authored balanced-ios, an iOS framework for tokenizing credit cards and bank accounts for Balanced Payments. It's since seen great adoption and as more people use it, automated testing of pull requests have become imparative to the project's growth and stability. Recently I change the architecture of balanced-ios. This post will explain how it used to work, how it works now, and the reasons for the changes.
 
-### Old balanced-ios Architecture in a Nutshell
-
-Having worked with and written Mac OS X frameworks in the past, it seemed like a great choice for balanced-ios.
+### Old balanced-ios Architecture (Framework)
 
 {% blockquote Karl Stenerud, https://github.com/kstenerud/iOS-Universal-Framework iOS Universal Framework %}
 Distributing libraries in a developer-friendly manner is tricky. You need to include not only the library itself, but also any public include files, resources, scripts etc.
 
-Apple's solution to this problem is frameworks, which are basically folders that follow a standard structure to include everything required to use a library. Unfortunately, in disallowing dynamically linked libraries in iOS, Apple also removed static iOS framework creation functionality in XCode.
+Apple's solution to this problem is frameworks, which are basically folders that follow a standard structure to include everything required to use a library. Unfortunately, in disallowing dynamically linked libraries in iOS, Apple also removed static iOS framework creation functionality in Xcode.
 {% endblockquote %}
 
-Unfortunately Xcode currently provides no template to create a framework for iOS. Following several guides for manually making one proved unfruitful and I eventually stumbled upon [iOS-Universal-Framework](https://github.com/kstenerud/iOS-Universal-Framework) which, amazinly enough, just worked.
+Unfortunately Xcode currently provides no template to create a framework for iOS. Following several guides for manually making one proved unfruitful and I eventually stumbled upon [iOS-Universal-Framework](https://github.com/kstenerud/iOS-Universal-Framework) which, amazingly enough, just worked.
 
 {% blockquote Karl Stenerud, https://github.com/kstenerud/iOS-Universal-Framework iOS Universal Framework %}
 Xcode is still technically capable of building frameworks for iOS, and with a little tweaking it can be re-enabled.
@@ -27,7 +25,7 @@ Xcode is still technically capable of building frameworks for iOS, and with a li
 Static frameworks are perfectly acceptable for packaging code intended for the app store. Despite appearances, it's just a static library at the core.
 {% endblockquote %}
 
-Fantastic! I cloned the project and fired up the installer. It required sudo access to install the templates into my Xcode application directory. So I entered in my password and bam, I was in business.
+Fantastic! Getting set up with iOS-Universal-Framework was as simple as cloning the project, firing up the installer script, answering a few questions that already had sensible defaults, and entering a sudo password.
 
 
 ### The Problem(s)
@@ -36,20 +34,28 @@ Fantastic! I cloned the project and fired up the installer. It required sudo acc
 Making use of iOS-Universal-Framework introduced a dependency for getting the project running on any given machine. Some developers struggled to understand what they needed to do to get the project to build. Simplicity was the goal and it became obvious this framework template requirement was stifling the project's growth.
 
 #### Testability
-As more people began to use the framework and submit pull requests to make balanced-ios even better, it became increasingly time consuming to pull down each fork and run the test suite to ensure non-breaking changes. Implementing automated testing became imparative. Travis-ci was a clear choice for performing automated tests for balanced-ios but certain challenges made the integration difficult. Travis-ci does not allow sudo access. The installation of iOS-Universal-Framework requires sudo to install the templates into the Xocde templates directory.
+As more people began to use the framework and submit pull requests to make balanced-ios even better, it became increasingly time consuming to pull down each fork and run the test suite to ensure non-breaking changes. Implementing automated testing became imparative. Travis-ci was a clear choice for performing automated tests for balanced-ios but certain challenges made the integration difficult. Travis-ci does not allow sudo access. The installation of iOS-Universal-Framework requires sudo to install the templates into the Xcode templates directory.
 
 The decision was made to drop the framework design in favor of building an iOS universal static library. Unfortunately this change doesn't come without sacrifice. Instead of integration being a matter of dropping into an iOS project a single framework file that encapsulates all balanced-ios content, users of the pre-built project will need to drop the static library, balanced.a, and the header files into their project.
 
 For the sake of attempting to not be more long-winded on the subject, I'll tone down the verbosity of all the trial and error performed.
 
 
-### Static Library
+### New balanced-ios Architecture (Static Library)
 
 The decision was made to drop the framework design in favor of building an iOS universal static library. Unfortunately this change doesn't come without sacrifice. Static libraries are a bit different from frameworks.  While frameworks encapsulate all project files, including headers, static libraries do not. Users of the pre-built library are required to add the static library, balanced.a, and the header files into their project.
 
 #### Add Static Framework Targets
 
-Unfortunately a single static framework doesn't want to build correctly for more than the device selected in the scheme chooser. For the sake of simplicity and clarity, balanced-ios has been set up with two individual Cocoa Touch Static Library targets, balanced-iphonesimulator and balanced-iphoneos.
+Unfortunately a single static framework doesn't want to build correctly for more than the device selected in the scheme chooser. The resulting binary usually reports something like the following, missing the simulator architecture, which makes developing iOS applications difficult:
+
+```
+libbalanced.a: Mach-O universal binary with 2 architectures
+libbalanced.a (for architecture armv7): current ar archive random library
+libbalanced.a (for architecture cputype (12) cpusubtype (11)): current ar archive random library
+```
+
+For the sake of simplicity and clarity, balanced-ios has been set up with two individual Cocoa Touch Static Library targets, balanced-iphonesimulator and balanced-iphoneos.
 
 balanced-iphonesimulator is configured as follows:
 
@@ -66,6 +72,7 @@ balanced-iphoneos is configured as follows:
 * Valid Architectues - armv7 armv7s
 
 Again, self-explanatory. Build for armv7 armv7s and not only the active arch, which is likely to be x86_64.
+
 
 #### Combine Framework Targets
 
@@ -96,6 +103,14 @@ The script does the following:
 * <i class="icon-angle-right"></i> Use lipo to combine both static frameworks into one universal framework
 * <i class="icon-angle-right"></i> Move the header includes to the project folder
 
+This results in the desired Mach-O universal binary.
+
+```
+balanced.a: Mach-O universal binary with 3 architectures
+balanced.a (for architecture i386): current ar archive random library
+balanced.a (for architecture armv7): current ar archive random library
+balanced.a (for architecture cputype (12) cpusubtype (11)): current ar archive random library
+```
 
 ### Conclusion
 
