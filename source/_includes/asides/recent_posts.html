@@ -2,9 +2,11 @@
   <h3>Recent Posts</h3>
   <ul id="recent_posts">
     {% for post in site.posts limit: site.recent_posts %}
-      <li class="post">
-        <a href="{{ root_url }}{{ post.url }}">{{ post.title }}</a>
-      </li>
+      {% unless post.draft %}
+        <li class="post">
+          <a href="{{ root_url }}{{ post.url }}">{{ post.title }}</a>
+        </li>
+      {% endunless %}
     {% endfor %}
   </ul>
 </section>

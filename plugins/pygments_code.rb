@@ -11,6 +11,7 @@ module HighlightCode
     lang = 'objc' if lang == 'm'
     lang = 'perl' if lang == 'pl'
     lang = 'yaml' if lang == 'yml'
+    lang = 'bash' if lang == 'shell'
     str = pygments(str, lang).match(/<pre>(.+)<\/pre>/m)[1].to_s.gsub(/ *$/, '') #strip out divs <div class="highlight">
     format_code(str, lang)
   end
