@@ -12,7 +12,7 @@ draft: true
 
 Can a person really be happy at their job? As I pondered this question over several months, I have to admit that I was arriving at a conclusion of no. I had what I would call a good job. I made decent money. The benefits were all right. My bills were getting paid. I was living moderately comfortably. Something was lacking though. I began to notice I wasn't happy. I enjoy writing software. I feel fortunate to have my interests coincide with my profession. I very much enjoy being creative and taking pride in my work. That makes me happy. So why wasn't I?
 
-I was working for a "closed" company. One in fact that practices stacked ranking. A company that prohibits contributing work back to open source projects. A company that places no value on developer involvement in feature planning and expects developers to just code what they ask for. One where all the credit for a successful feature addition would go to the project manager and all the credit for a problem or failure to the developer. Such an environment was crushing my creativity, and that is something I refuse to lose.
+I was working for a "closed" company. One in fact that practices stacked ranking. A company that prohibits contributing work back to open source projects. A company that places no value on developer involvement in feature planning and expects developers to just code what they ask for. One where all the credit for a successful feature addition would go to the project manager and all the blame for a problem or failure to the developer. Such an environment was crushing my creativity, and that is something I refuse to lose.
 
 
 ### Pursuing a creative outlet
