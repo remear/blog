@@ -4,6 +4,7 @@ title: "balanced-ios By Example"
 date: 2013-07-09 13:41
 comments: true
 categories: ios balanced
+draft: true
 ---
 
 <div class="iphone-container">
