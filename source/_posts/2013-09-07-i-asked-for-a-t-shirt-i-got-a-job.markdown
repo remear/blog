@@ -2,7 +2,7 @@
 layout: post
 title: "I asked for a t-shirt, I got a job"
 date: 2013-09-07 11:18
-comments: false
+comments: true
 categories: balanced
 draft: false
 ---
