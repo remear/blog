@@ -48,7 +48,7 @@ Discussion on HackerNews: [https://news.ycombinator.com/item?id=6529696](https:/
 <small>
 1. [Why I Made My Payments Startup An Open Company][] <br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Balanced adds Andreessen Horowitz and Collaborative...][]
-<small>
+</small>
 
 [Why I Made My Payments Startup An Open Company]: http://www.fastcolabs.com/3008944/open-company/why-i-made-my-payments-startup-an-open-company
 [Balanced adds Andreessen Horowitz and Collaborative...]: http://pandodaily.com/2013/04/02/balanced-adds-andreessen-horowitz-and-collaboration-fund-as-investors-and-opens-up-about-opening-up/

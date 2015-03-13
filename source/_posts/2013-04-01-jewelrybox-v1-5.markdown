@@ -43,7 +43,7 @@ Continue reading below for a detailed description of the major changes in v1.5.
 <br>
 <br>
 
-####Compatability with newer RVM versions
+###Compatability with newer RVM versions
 JewelryBox v1.5 requires RVM 1.19.1 or newer.
 
 
